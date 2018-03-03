@@ -3,30 +3,30 @@
 ## This function creates an empty matrix and caches its inverse 
 
 makeCacheMatrix <- function(x = matrix(), ...) {
-  m <- NULL
+  i <- NULL
   set <- function(y) {
     x <<- y
-    m <<- NULL
+    i <<- NULL
   }
   get <- function() x
-  setinv <- function(mean) m <<- inv
-  getinv <- function() m
+  setinverse <- function(inverse) i <<- inverse
+  getinverse <- function() i
   list(set = set, get = get,
-       setinv = setinv,
-       getinv = getinv)
+       setinverse = setinverse,
+       getinverse = getinverse)
 }
 
 
-## This function will retrieve the cached inverse matrix m created above, and it hasn't been inversed yet, inverse the matrix
+## This function will retrieve the cached inverse matrix i created above, and it hasn't been inversed yet, inverse the matrix
 
 cacheSolve <- function(x, ...) {
-  m <- x$getinv()
-  if(!is.null(m)) {
+  i <- x$getinverse()
+  if(!is.null(i)) {
     message("getting cached data")
-    return(m)
+    return(i)
   }
   data <- x$get()
-  m <- inv(data, ...)
-  x$setinv(m)
-  m
+  i <- inv(data, ...)
+  x$setinverse(i)
+  i
 }
